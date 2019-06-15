@@ -22,11 +22,17 @@ var cards = [
 ];
 var cardsInPlay = [];
 
+var resetMessage = function() {
+    alert("Sorry, I couldn't get this to work!");
+}
+document.getElementById('resetButton').addEventListener('click', resetMessage);
+
+
 function checkForMatch() {
 if (cardsInPlay[0] === cardsInPlay[1]) {
-  console.log("You found a match!");
+  alert("You found a match!");
 } else {
-  console.log("Sorry, try again.");
+  alert("Sorry, try again.");
 }
 }
 
@@ -57,7 +63,35 @@ function createBoard() {
 
 createBoard();
 
-//Note: I put the checkformatch results in consolelog to prevent popups
+//Could not find a way to reset -non-forms. The best I could probably do is refresh. Because of that, I can't extend the game and keep score.
+//Assuming I could, I'd keep score like this.
 
-// 1) How is the function linked to the array?
+/*
+IN HTML:
+<p id='score' class="clearfix"></p>
+
+IN JS:
+
+var wins = 0
+var losses = 0
+document.getElementById('score').innerHTML = wins + " : "" + losses;
+
+
+function checkForMatch() {
+if (cardsInPlay[0] === cardsInPlay[1]) {
+  alert("You found a match!");
+  wins = wins + 1;
+} else {
+  alert("Sorry, try again.");
+  losses = losses + 1;
+}
+}
+
+
+*/
+
+
+//QUESTIONS
+// 1) How is the function linked to the array? cards.length?
+
 // 2) is it necessary for createboard() to be after flipcard() because flipcard() is included later? what about 'data-id' going the other way?

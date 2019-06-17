@@ -22,10 +22,19 @@ var cards = [
 ];
 var cardsInPlay = [];
 
-var resetMessage = function() {
-    alert("Sorry, I couldn't get this to work!");
-}
-document.getElementById('resetButton').addEventListener('click', resetMessage);
+//reset code
+var noCardsInPlay = [];
+var backupBoard = document.getElementById('game-board').cloneNode(true);
+
+
+reset = function() {
+    cardsInPlay = noCardsInPlay;
+    document.getElementById('game-board').replaceWith(backupBoard);
+    createBoard();
+};
+
+document.getElementById("resetButton").addEventListener('click', reset);
+//end reset code
 
 
 function checkForMatch() {

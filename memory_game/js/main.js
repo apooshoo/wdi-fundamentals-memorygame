@@ -21,15 +21,13 @@ var cards = [
 },
 ];
 var cardsInPlay = [];
+var winScore = 0; //initial win value
+var lossScore = 0; //initial loss value
 
-//reset code
-var noCardsInPlay = [];
-var backupBoard = document.getElementById('game-board').cloneNode(true);
-
-
+//reset code. erases changes and recreates game-board
 reset = function() {
-    cardsInPlay = noCardsInPlay;
-    document.getElementById('game-board').replaceWith(backupBoard);
+    cardsInPlay = [];
+    document.getElementById('game-board').innerHTML = "";
     createBoard();
 };
 
@@ -40,9 +38,12 @@ document.getElementById("resetButton").addEventListener('click', reset);
 function checkForMatch() {
 if (cardsInPlay[0] === cardsInPlay[1]) {
   alert("You found a match!");
+  winScore = winScore + 1; //increase wins if win
 } else {
   alert("Sorry, try again.");
-}
+  lossScore = lossScore + 1; //increase losses if loss
+};
+setScore(); // displays updated score. setScore() defined below.
 }
 
 
@@ -67,40 +68,20 @@ function createBoard() {
         cardElement.setAttribute('data-id', i);
         cardElement.addEventListener('click', flipCard);
         document.getElementById('game-board').appendChild(cardElement);
-    }
-}
+    };
+};
 
+//score code to insert scores into HTML
+function setScore() {
+    document.getElementById('score').innerHTML = "Score: " + winScore + " : " + lossScore;
+};
+
+setScore();
 createBoard();
 
-//Could not find a way to reset -non-forms. The best I could probably do is refresh. Because of that, I can't extend the game and keep score.
-//Assuming I could, I'd keep score like this.
-
-/*
-IN HTML:
-<p id='score' class="clearfix"></p>
-
-IN JS:
-
-var wins = 0
-var losses = 0
-document.getElementById('score').innerHTML = wins + " : "" + losses;
 
 
-function checkForMatch() {
-if (cardsInPlay[0] === cardsInPlay[1]) {
-  alert("You found a match!");
-  wins = wins + 1;
-} else {
-  alert("Sorry, try again.");
-  losses = losses + 1;
-}
-}
 
+// TRIED AND FAILED RESET CODE
 
-*/
-
-
-//QUESTIONS
-// 1) How is the function linked to the array? cards.length?
-
-// 2) is it necessary for createboard() to be after flipcard() because flipcard() is included later? what about 'data-id' going the other way?
+//.cloneNode + .replaceWith
